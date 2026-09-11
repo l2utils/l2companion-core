@@ -127,7 +127,7 @@ cargo clippy --workspace --all-targets -- -D warnings
 2. **Preserve Architectural Purity**: Keep `l2companion-protocol` strictly zero-IO and platform-agnostic.
 3. **Documentation**: Update docstrings and keep `README.md` in sync when introducing new CLI flags, GraphQL queries, or packet decoders.
 4. **Synchronize Agent Configurations**: When updating instructions, workflows, or rules, always update all agent entry points in sync (`AGENTS.md`, `.github/copilot-instructions.md`, `CLAUDE.md`, `GEMINI.md`, and `.cursorrules`).
-5. **Worktree Isolation per Session**: For each conversation/session in this project, if there are code changes to a git repo, create a worktree and track it in the conversation/worktree to allow for better parallelization of conversations/sessions.
+5. **Worktree Isolation & Lifecycle**: For each conversation/session in this project, if there are code changes to a git repo, create a worktree and track it in the conversation/worktree to allow for better parallelization of conversations/sessions. Upon completion of a task that created a worktree (e.g. PR merged), remove said worktree.
 
 ---
 
@@ -146,3 +146,4 @@ cargo clippy --workspace --all-targets -- -D warnings
 
 ### Git Worktrees & Session Isolation
 * For each conversation/session involving code changes, create an isolated git worktree and track it in the conversation/worktree to avoid branch collisions and allow concurrent sessions.
+* Upon completion of a task that created a worktree (e.g. PR merged), remove said worktree and clean up the worktree directory.
